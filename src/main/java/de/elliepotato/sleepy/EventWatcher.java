@@ -22,12 +22,17 @@ public class EventWatcher implements Listener {
     public void on (PlayerJoinEvent e) {
         if (watcher.getConfigDataHolder().getDisabledWorlds().contains(e.getPlayer().getWorld().getName())) return;
 
+        Sleepy.debug("Player joined into non-disabled world, " + e.getPlayer().getWorld().getName());
+
         watcher.processPlayerWorldConnectionEvent(e.getPlayer().getWorld());
     }
+
 
     @EventHandler
     public void on (PlayerQuitEvent e) {
         if (watcher.getConfigDataHolder().getDisabledWorlds().contains(e.getPlayer().getWorld().getName())) return;
+
+        Sleepy.debug("Player quit from non-disabled world, " + e.getPlayer().getWorld().getName());
 
         watcher.processPlayerWorldConnectionEvent(e.getPlayer().getWorld());
     }

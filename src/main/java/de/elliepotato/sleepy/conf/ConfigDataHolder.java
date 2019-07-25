@@ -37,13 +37,17 @@ public class ConfigDataHolder {
         Optional<Integer> fixedValue = NumberTools.tryParse(conditionTypeSerialized);
 
         if (fixedValue.isPresent()) {
+            Sleepy.debug("fixed value is present, " + fixedValue.get());
+
             conditionType = ConditionType.FIXED_VALUE;
             sleepingMinFixed = fixedValue.get();
         } else {
 
             final Optional<ConditionType> conditionType = Arrays.stream(ConditionType.values()).filter(value -> value != ConditionType.FIXED_VALUE
-                    || !value.toString().equals(conditionTypeSerialized.toUpperCase()))
+                    || value.toString().equals(conditionTypeSerialized.toUpperCase()))
                     .findFirst();
+
+            Sleepy.debug(conditionType.toString());
 
             conditionType.ifPresent(type -> this.conditionType = type);
 

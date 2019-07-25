@@ -1,5 +1,7 @@
 package de.elliepotato.sleepy.util;
 
+import de.elliepotato.sleepy.Sleepy;
+
 import java.util.Optional;
 
 /**
@@ -22,6 +24,8 @@ public class NumberTools {
     }
 
     public static double halfFloor (int x) {
+        Sleepy.debug("x / 2 = " + (x / 2));
+        Sleepy.debug("floor ans " + Math.floor(x / 2));
         return Math.floor (x / 2);
     }
 

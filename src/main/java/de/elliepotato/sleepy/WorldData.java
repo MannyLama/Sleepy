@@ -45,7 +45,6 @@ public class WorldData {
         sleepers.clear();
 
         cancelTask();
-
     }
 
     public void setReminderTask(int reminderTask) {

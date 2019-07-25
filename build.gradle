@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'de.elliepotato'
-version '1.0-RELEASE'
+version '1.1-RELEASE'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
