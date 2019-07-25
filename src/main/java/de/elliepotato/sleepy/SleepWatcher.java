@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author Ellie :: 24/07/2019
@@ -25,8 +24,6 @@ public class SleepWatcher implements Listener  {
     private ConfigDataHolder configDataHolder;
 
     private Map <World, WorldData> worldData;
-
-    private int taskId = -1;
 
     public SleepWatcher (Sleepy sleepy) {
         this.sleepy = sleepy;
@@ -77,12 +74,15 @@ public class SleepWatcher implements Listener  {
         if (worldData.isSkippingNight()) return;
 
         if (worldData.getSleepers().size() >= worldData.getCurrentlyRequiredSleepers()) {
+
             worldData.setSkippingNight(true);
             startTask(player.getWorld(), worldData, 0);
 
             Bukkit.getScheduler().scheduleSyncDelayedTask(sleepy, () -> {
                 player.getWorld().setTime(configDataHolder.getTimeNewDay());
                 worldData.setSkippingNight(false);
+
+                worldData.cancelTask();
             }, configDataHolder.getNewDayDelay());
 
             return;
@@ -95,6 +95,7 @@ public class SleepWatcher implements Listener  {
         }
 
         int need = Math.max(0, worldData.getCurrentlyRequiredSleepers() - worldData.getSleepers().size());
+
         startTask(player.getWorld(), worldData, need);
     }
 
