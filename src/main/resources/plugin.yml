@@ -1,0 +1,10 @@
+name: Sleepy
+main: de.elliepotato.sleepy.Sleepy
+version: 1.0-RELEASE
+author: Ellie#0006
+description: Sleep time.
+website: www.elliepotato.de
+
+commands:
+  sleepy:
+    description: Commands of the plugin.

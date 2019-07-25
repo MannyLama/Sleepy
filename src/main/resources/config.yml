@@ -1,0 +1,41 @@
+# Sleeper Configuration #
+
+# Possible options:
+# - A number
+# - HALF      - At least half of all the players in the world
+# - ALL       - All the players in the world.
+# Basically the amount that is needed for players to skip the night in their world.
+required-sleeping: HALF
+
+# Delay in ticks after there are enough people sleeping for it to skip. (20 ticks =~ 1 second)
+new-day-delay: 40
+
+# Set when a new day starts (in ticks) after the night is skipped.
+# Values before 0 and after 12010 won't be accepted. (See https://minecraft.gamepedia.com/Day-night_cycle)
+new-day: 1000
+
+# List of worlds the plugin will not function in. If you have only one world you can ignore this.
+# The below worlds are just examples as you can obviously not sleep in these worlds anyway.
+disabled-worlds:
+  - world_nether
+  - world_the_end
+
+# Leave any "message" field blank to disable it.
+# Placeholders: %value%, %player%, %world%, %time%
+# "Show" refers to where it will show. Valid options: ACTION_BAR, CHAT, SYSTEM
+messages:
+  playerNowSleeping:
+    message: "&c%player% is now sleeping."
+    show: CHAT
+  playerNoLongerSleeping:
+    message: "&c%player% is no longer sleeping."
+    show: CHAT
+  toSkipNeeded:
+    message: "&c%value% more players are needed to skip the night."
+    show: ACTION_BAR
+  toSkipSatisfied:
+    message: "&bLooks like enough are sleeping, good night!"
+    show: ACTION_BAR
+  afterNightSkipped:
+    message: "&e&lRise and shine!"
+    show: ACTION_BAR
