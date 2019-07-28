@@ -31,7 +31,7 @@ This project requires **Gradle 5** & **Java 8** to build (because of ShadowJar m
 * [This GitHub Page](https://github.com/literallyEllie/Sleepy)
 * [My website](https://elliepotato.de)
 * My Discord: **Ellie#0006**
-* My Twitter: **@literallyEllie@**
+* My Twitter: **@literallyEllie**
 
 
 Thanks for reading and have a good day.
