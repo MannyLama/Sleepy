@@ -1,5 +1,8 @@
 # Sleeper Configuration #
 
+# Keep your server up to date. Will run every time the server restarts.
+check-version: true
+
 # Possible options:
 # - A number
 # - HALF      - At least half of all the players in the world

@@ -1,10 +1,15 @@
 name: Sleepy
 main: de.elliepotato.sleepy.Sleepy
-version: 1.1-RELEASE
+version: 1.2-SNAPSHOT
 author: Ellie#0006
 description: Sleep time.
 website: www.elliepotato.de
+api-version: 1.14
 
 commands:
   sleepy:
     description: Commands of the plugin.
+
+permissions:
+  sleepy.reload:
+    description: Allows the player to reload the plugin + get new update notifications.

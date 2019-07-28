@@ -1,7 +1,5 @@
 package de.elliepotato.sleepy.util;
 
-import de.elliepotato.sleepy.Sleepy;
-
 import java.util.Optional;
 
 /**
@@ -9,7 +7,7 @@ import java.util.Optional;
  */
 public class NumberTools {
 
-    public static Optional<Integer> tryParse (String value) {
+    public static Optional<Integer> tryParse(String value) {
 
         try {
             return Optional.of(Integer.parseInt(value));
@@ -19,14 +17,12 @@ public class NumberTools {
         return Optional.empty();
     }
 
-    public static boolean equals (int a, int b) {
+    public static boolean equals(int a, int b) {
         return a == b;
     }
 
-    public static double halfFloor (int x) {
-        Sleepy.debug("x / 2 = " + (x / 2));
-        Sleepy.debug("floor ans " + Math.floor(x / 2));
-        return Math.floor (x / 2);
+    public static double halfFloor(int x) {
+        return Math.floor(x / 2);
     }
 
 }

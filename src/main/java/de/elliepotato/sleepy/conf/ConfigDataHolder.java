@@ -13,26 +13,30 @@ import java.util.Set;
  */
 public class ConfigDataHolder {
 
-    public enum ConditionType { FIXED_VALUE, HALF, ALL }
-
+    private boolean doVersionCheck;
     private ConditionType conditionType;
     private int sleepingMinFixed;
-
     private int newDayDelay, timeNewDay;
-
     private Set<String> disabledWorlds;
-
     private Map<String, CustomMessage> messages;
 
-    public ConditionType getConditionType () {
+    public boolean isDoVersionCheck() {
+        return doVersionCheck;
+    }
+
+    public void setDoVersionCheck(boolean doVersionCheck) {
+        this.doVersionCheck = doVersionCheck;
+    }
+
+    public ConditionType getConditionType() {
         return conditionType;
     }
 
-    public void setConditionType (ConditionType conditionType) {
+    public void setConditionType(ConditionType conditionType) {
         this.conditionType = conditionType;
     }
 
-    public void setConditionTypeSerialized (String conditionTypeSerialized)
+    public void setConditionTypeSerialized(String conditionTypeSerialized)
             throws IllegalArgumentException {
         Optional<Integer> fixedValue = NumberTools.tryParse(conditionTypeSerialized);
 
@@ -53,51 +57,51 @@ public class ConfigDataHolder {
 
             if (!conditionType.isPresent()) {
                 this.conditionType = ConditionType.HALF;
-                throw new IllegalArgumentException (conditionTypeSerialized + " is not a valid condition type");
+                throw new IllegalArgumentException(conditionTypeSerialized + " is not a valid condition type");
             }
 
         }
 
     }
 
-    public int getSleepingMinFixed () {
+    public int getSleepingMinFixed() {
         return sleepingMinFixed;
     }
 
-    public void setSleepingMinFixed (int sleepingMinFixed) {
+    public void setSleepingMinFixed(int sleepingMinFixed) {
         this.sleepingMinFixed = sleepingMinFixed;
     }
 
-    public int getNewDayDelay () {
+    public int getNewDayDelay() {
         return newDayDelay;
     }
 
-    public void setNewDayDelay (int newDayDelay) {
+    public void setNewDayDelay(int newDayDelay) {
         this.newDayDelay = newDayDelay;
     }
 
-    public void setNewDayDelay (String newDayDelaySerialized)
-        throws IllegalArgumentException {
+    public void setNewDayDelay(String newDayDelaySerialized)
+            throws IllegalArgumentException {
 
         Optional<Integer> delay = NumberTools.tryParse(newDayDelaySerialized);
         delay.ifPresent(value -> this.newDayDelay = value);
 
         if (!delay.isPresent()) {
             this.newDayDelay = 20;
-            throw new IllegalArgumentException (newDayDelaySerialized + " is not a valid delay");
+            throw new IllegalArgumentException(newDayDelaySerialized + " is not a valid delay");
         }
 
     }
 
-    public int getTimeNewDay () {
+    public int getTimeNewDay() {
         return timeNewDay;
     }
 
-    public void setTimeNewDay (int timeNewDay) {
+    public void setTimeNewDay(int timeNewDay) {
         this.timeNewDay = timeNewDay;
     }
 
-    public void setTimeNewDay (String timeNewDaySerialized)
+    public void setTimeNewDay(String timeNewDaySerialized)
             throws IllegalArgumentException {
 
         Optional<Integer> newDayTime = NumberTools.tryParse(timeNewDaySerialized);
@@ -106,7 +110,7 @@ public class ConfigDataHolder {
 
         if (!newDayTime.isPresent()) {
             this.timeNewDay = 1000;
-            throw new IllegalArgumentException (timeNewDaySerialized + " is not a valid time, see config for guidance");
+            throw new IllegalArgumentException(timeNewDaySerialized + " is not a valid time, see config for guidance");
         }
 
     }
@@ -119,11 +123,15 @@ public class ConfigDataHolder {
         this.disabledWorlds = disabledWorlds;
     }
 
-    public Map<String, CustomMessage> getMessages () {
+    public Map<String, CustomMessage> getMessages() {
         return messages;
     }
 
-    public Optional<CustomMessage> getMessage (PluginMessage message) {
+    public void setMessages(Map<String, CustomMessage> messages) {
+        this.messages = messages;
+    }
+
+    public Optional<CustomMessage> getMessage(PluginMessage message) {
         if (messages.containsKey(message.getKey())) {
             return Optional.of(messages.get(message.getKey()));
         }
@@ -131,8 +139,6 @@ public class ConfigDataHolder {
         return Optional.empty();
     }
 
-    public void setMessages(Map<String, CustomMessage> messages) {
-        this.messages = messages;
-    }
+    public enum ConditionType {FIXED_VALUE, HALF, ALL}
 
 }

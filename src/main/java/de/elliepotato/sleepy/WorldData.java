@@ -17,19 +17,19 @@ public class WorldData {
     private boolean skippingNight;
     private int reminderTask = -1;
 
-    public WorldData () {
-        this.sleepers = Sets.newHashSet ();
+    public WorldData() {
+        this.sleepers = Sets.newHashSet();
     }
 
-    public Set<Player> getSleepers () {
+    public Set<Player> getSleepers() {
         return sleepers;
     }
 
-    public int getCurrentlyRequiredSleepers () {
+    public int getCurrentlyRequiredSleepers() {
         return currentlyRequiredSleepers;
     }
 
-    public void setCurrentlyRequiredSleepers (int currentlyRequiredSleepers) {
+    public void setCurrentlyRequiredSleepers(int currentlyRequiredSleepers) {
         this.currentlyRequiredSleepers = currentlyRequiredSleepers;
     }
 
@@ -41,7 +41,7 @@ public class WorldData {
         this.skippingNight = skippingNight;
     }
 
-    public void nightOver () {
+    public void nightOver() {
         sleepers.clear();
 
         cancelTask();
@@ -51,7 +51,7 @@ public class WorldData {
         this.reminderTask = reminderTask;
     }
 
-    public void cancelTask () {
+    public void cancelTask() {
         if (reminderTask != -1) {
             Bukkit.getScheduler().cancelTask(reminderTask);
             reminderTask = -1;

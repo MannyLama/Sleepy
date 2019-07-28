@@ -17,23 +17,23 @@ import java.util.Optional;
 /**
  * @author Ellie :: 24/07/2019
  */
-public class SleepWatcher implements Listener  {
+public class SleepWatcher implements Listener {
 
     private Sleepy sleepy;
     private ConfigDataHolder configDataHolder;
 
-    private Map <World, WorldData> worldData;
+    private Map<World, WorldData> worldData;
 
-    public SleepWatcher (Sleepy sleepy) {
+    public SleepWatcher(Sleepy sleepy) {
         this.sleepy = sleepy;
         this.configDataHolder = sleepy.getConfigHandle().getConfigDataHolder();
 
         sleepy.getServer().getPluginManager().registerEvents(new EventWatcher(this), sleepy);
 
-        this.worldData = Maps.newHashMap ();
+        this.worldData = Maps.newHashMap();
     }
 
-    public void processPlayerWorldConnectionEvent (World world) {
+    public void processPlayerWorldConnectionEvent(World world) {
 
         if (!worldData.containsKey(world)) {
             Sleepy.debug(world.getName() + " had no data, creating.");
@@ -66,7 +66,7 @@ public class SleepWatcher implements Listener  {
 
     }
 
-    public void processSleeperEvent (Player player, boolean inBed) {
+    public void processSleeperEvent(Player player, boolean inBed) {
 
         if (!worldData.containsKey(player.getWorld())) {
             Sleepy.debug(player.getWorld().getName() + " had no data, creating.");
@@ -79,8 +79,8 @@ public class SleepWatcher implements Listener  {
         else worldData.getSleepers().remove(player);
 
         configDataHolder.getMessage(inBed ? PluginMessage.PLAYER_SLEEPING : PluginMessage.PLAYER_STOP_SLEEPING).ifPresent(message ->
-                        message.getMessage().ifPresent(s -> player.getWorld().getPlayers().forEach(p ->
-                                p.spigot().sendMessage(message.getChatMessageType(), TextComponent.fromLegacyText(message.applyPlaceholders(player))))));
+                message.getMessage().ifPresent(s -> player.getWorld().getPlayers().forEach(p ->
+                        p.spigot().sendMessage(message.getChatMessageType(), TextComponent.fromLegacyText(message.applyPlaceholders(player))))));
 
         Sleepy.debug(player.getWorld().getName() + " is already being skipped, ignoring this event.");
 
@@ -120,7 +120,7 @@ public class SleepWatcher implements Listener  {
         startTask(player.getWorld(), worldData, need);
     }
 
-    public void presumeNightOverEvent (Player player) {
+    public void presumeNightOverEvent(Player player) {
 
         if (worldData.containsKey(player.getWorld())) {
             this.worldData.get(player.getWorld()).nightOver();
@@ -131,19 +131,19 @@ public class SleepWatcher implements Listener  {
                         p.spigot().sendMessage(message.getChatMessageType(), TextComponent.fromLegacyText(message.applyPlaceholders(player))))));
     }
 
-    public ConfigDataHolder getConfigDataHolder () {
+    public ConfigDataHolder getConfigDataHolder() {
         return configDataHolder;
     }
 
-    public void setConfigDataHolder (ConfigDataHolder configDataHolder) {
+    public void setConfigDataHolder(ConfigDataHolder configDataHolder) {
         this.configDataHolder = configDataHolder;
     }
 
-    public Map<World, WorldData> getWorldData () {
+    public Map<World, WorldData> getWorldData() {
         return worldData;
     }
 
-    public void startTask (World world, WorldData worldData, int need) {
+    public void startTask(World world, WorldData worldData, int need) {
         worldData.cancelTask();
 
         final Optional<CustomMessage> message = configDataHolder.getMessage(need == 0 ? PluginMessage.ENOUGH_TO_SKIP : PluginMessage.SKIP_NEEDED);
@@ -155,11 +155,11 @@ public class SleepWatcher implements Listener  {
         final String s = message.get().getRawMessage().replace("%value%", String.valueOf(need));
 
         worldData.setReminderTask(Bukkit.getScheduler().runTaskTimer(sleepy, () ->
-                world.getPlayers().forEach(o -> o.spigot().sendMessage(message.get().getChatMessageType(), TextComponent.fromLegacyText(s))),
+                        world.getPlayers().forEach(o -> o.spigot().sendMessage(message.get().getChatMessageType(), TextComponent.fromLegacyText(s))),
                 0L, 20L).getTaskId());
     }
 
-    private void createWorldData (World world) {
+    private void createWorldData(World world) {
         if (!worldData.containsKey(world))
             worldData.put(world, new WorldData());
     }

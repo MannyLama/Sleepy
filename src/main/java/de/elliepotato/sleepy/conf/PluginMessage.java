@@ -14,7 +14,7 @@ public enum PluginMessage {
 
     private String key;
 
-    PluginMessage (String key) {
+    PluginMessage(String key) {
         this.key = key;
     }
 

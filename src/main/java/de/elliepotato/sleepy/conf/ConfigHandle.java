@@ -14,14 +14,14 @@ public class ConfigHandle {
     private Sleepy sleepy;
     private ConfigDataHolder configDataHolder;
 
-    public ConfigHandle (Sleepy sleepy) {
+    public ConfigHandle(Sleepy sleepy) {
         this.sleepy = sleepy;
 
         reload();
     }
 
-    public void reload () {
-        sleepy.saveDefaultConfig ();
+    public void reload() {
+        sleepy.saveDefaultConfig();
 
         if (configDataHolder != null) {
             Sleepy.debug("Config holder != null, presuming reload. Cleaning up.");
@@ -30,7 +30,16 @@ public class ConfigHandle {
 
         this.configDataHolder = null;
         Sleepy.debug("init conf data holder");
-        this.configDataHolder = new ConfigDataHolder ();
+        this.configDataHolder = new ConfigDataHolder();
+
+        // Since 1.2
+        if (sleepy.getConfig().get("check-version") == null) {
+            sleepy.logInfo("A new config value has spawned! 'check-version', when set to true (by default) it will check the update every restart.");
+            sleepy.getConfig().set("check-version", true);
+            sleepy.saveConfig();
+        }
+
+        this.configDataHolder.setDoVersionCheck(sleepy.getConfig().getBoolean("check-version"));
 
         // Set values.
         Sleepy.debug("Data validation");
@@ -60,11 +69,11 @@ public class ConfigHandle {
 
     }
 
-    public ConfigDataHolder getConfigDataHolder () {
+    public ConfigDataHolder getConfigDataHolder() {
         return configDataHolder;
     }
 
-    private void checkIllegalInput (Sleepy sleepy, Runnable runnable) {
+    private void checkIllegalInput(Sleepy sleepy, Runnable runnable) {
         try {
             runnable.run();
         } catch (IllegalArgumentException e) {

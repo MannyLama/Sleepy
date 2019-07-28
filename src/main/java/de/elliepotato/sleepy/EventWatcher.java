@@ -14,12 +14,12 @@ public class EventWatcher implements Listener {
 
     private SleepWatcher watcher;
 
-    public EventWatcher (SleepWatcher sleepWatcher) {
+    public EventWatcher(SleepWatcher sleepWatcher) {
         this.watcher = sleepWatcher;
     }
 
     @EventHandler
-    public void on (PlayerJoinEvent e) {
+    public void on(PlayerJoinEvent e) {
         if (watcher.getConfigDataHolder().getDisabledWorlds().contains(e.getPlayer().getWorld().getName())) return;
 
         Sleepy.debug("Player joined into non-disabled world, " + e.getPlayer().getWorld().getName());
@@ -29,7 +29,7 @@ public class EventWatcher implements Listener {
 
 
     @EventHandler
-    public void on (PlayerQuitEvent e) {
+    public void on(PlayerQuitEvent e) {
         if (watcher.getConfigDataHolder().getDisabledWorlds().contains(e.getPlayer().getWorld().getName())) return;
 
         Sleepy.debug("Player quit from non-disabled world, " + e.getPlayer().getWorld().getName());
@@ -38,7 +38,7 @@ public class EventWatcher implements Listener {
     }
 
     @EventHandler
-    public void on (PlayerChangedWorldEvent e) {
+    public void on(PlayerChangedWorldEvent e) {
         final Set<String> disabledWorlds = watcher.getConfigDataHolder().getDisabledWorlds();
 
         if (!disabledWorlds.contains(e.getFrom().getName()))
@@ -52,7 +52,7 @@ public class EventWatcher implements Listener {
     }
 
     @EventHandler
-    public void on (PlayerBedEnterEvent e) {
+    public void on(PlayerBedEnterEvent e) {
 
         final PlayerBedEnterEvent.BedEnterResult bedEnterResult = e.getBedEnterResult();
 
@@ -66,7 +66,7 @@ public class EventWatcher implements Listener {
     }
 
     @EventHandler
-    public void on (PlayerBedLeaveEvent e) {
+    public void on(PlayerBedLeaveEvent e) {
 
         final Player player = e.getPlayer();
 
