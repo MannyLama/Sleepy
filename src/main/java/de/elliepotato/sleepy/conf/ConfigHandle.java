@@ -33,7 +33,7 @@ public class ConfigHandle {
         this.configDataHolder = new ConfigDataHolder();
 
         // Since 1.2
-        if (sleepy.getConfig().get("check-version") == null) {
+        if (!sleepy.getConfig().isSet("check-version")) {
             sleepy.logInfo("A new config value has spawned! 'check-version', when set to true (by default) it will check the update every restart.");
             sleepy.getConfig().set("check-version", true);
             sleepy.saveConfig();

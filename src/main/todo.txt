@@ -1,1 +1,1 @@
-ALL DONE.
+make a workaround to comments being removed from config when new values set.
