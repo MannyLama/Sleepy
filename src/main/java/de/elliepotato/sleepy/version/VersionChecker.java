@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class VersionChecker {
 
-    private static final String DOMAIN = "elliepotato.de";
+    private static final String DOMAIN = "api.elliepotato.de";
     private static final String API_VERSION = "v1";
 
     private static final String ENDPOINT = "plugin";
@@ -42,7 +42,12 @@ public class VersionChecker {
                 return;
             }
 
-            VersionParser latestVersion = new VersionParser(getLatestVersion(sleepy));
+            final String latestVersionRaw = getLatestVersion(sleepy);
+            if (latestVersionRaw == null) {
+                return;
+            }
+
+            VersionParser latestVersion = new VersionParser(latestVersionRaw);
 
             if (latestVersion.getFullVersion() == null) return;
 
@@ -77,12 +82,13 @@ public class VersionChecker {
 
     private String getLatestVersion(Sleepy sleepy) {
         try {
-            URL url = new URL("http://" + DOMAIN + "/api/" + API_VERSION);
+            URL url = new URL("https://" + DOMAIN + "/" + API_VERSION);
             // URL url = new URL("http://localhost:9489/api/" + API_VERSION);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
 
+            connection.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
             connection.setRequestProperty("Accept", "application/json");
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             connection.setDoInput(true);
@@ -131,7 +137,7 @@ public class VersionChecker {
             e.printStackTrace();
         }
 
-        return "";
+        return null;
     }
 
 
