@@ -17,8 +17,6 @@ There is also an option to exclude worlds where the plugin would not function in
 
 The plugin utilizes a personal API server on a public endpoint to check the version of the plugin. This is used by all of my plugins. You can find the host at [My Website](https://elliepotato.de). You can read more about this API [Here](https://github.com/literallyEllie/elliepotato-api). You can disable this feature in the config.
 
-**As of 28.07.2019, the API server is not live so it will not work, if you fork and build yourself, you can disable it in the configuration**
-
 ## Issues / Pull Requests
 If you find a bug with the plugin, you can optionally make a PR and fix it yourself. Or alternatively make an issue report at https://github.com/literallyEllie/Sleepy/issues . I appreciate it eitherway. 
 If you make a PR, please try and follow the style and conventions of the plugin (not to mention Java conventions) so that it fits in nicely.
